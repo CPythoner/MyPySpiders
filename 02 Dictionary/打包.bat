@@ -1,0 +1,1 @@
+pyinstaller -F -i Dictionary.ico dict.py
