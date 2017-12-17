@@ -1,5 +1,3 @@
-词典开发
-
 **运行平台：** Windows 
 **Python版本：** Python3.6
 **IDE：** PyCharm
@@ -8,8 +6,6 @@
 [TOC]
 
 ---
-
-
 
 > 作为一个程序员，会经常查阅一些技术文档和技术网站，很多都是英文的，遇到不认识的词就要查，词典的使用频率也颇高，既然是程序员，高逼格的方式当然是做一个词典，此为动机。
 
@@ -34,13 +30,13 @@
 
 ​	我只是想弄懂单词的意思，所以我需要的数据是如图所示部分：
 
-![需要的数据](E:\__Python\爬虫\03 金山词霸\开发文档\images\1.需要的数据.png)
+![需要的数据](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/1.%E9%9C%80%E8%A6%81%E7%9A%84%E6%95%B0%E6%8D%AE.png)
 
 ​	在浏览器按F12键调出开发者工具，然后刷新页面，我们要在页面中寻找我们需要的数据，按图示操作：
 
-![2.查找区域](E:\__Python\爬虫\03 金山词霸\开发文档\images\2.查找区域.png)
+![查找区域](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/2.%E6%9F%A5%E6%89%BE%E5%8C%BA%E5%9F%9F.png)
 
-​	确定好了数据区域是\<div class="base-list switch_part">和\</ul>中间的部分，接下来就把这些数据都抓取下来吧。
+​	确定好了数据区域是< ul class="base-list switch_part">和< /ul>中间的部分，接下来就把这些数据都抓取下来吧。 
 
 ## 2.3 抓取数据
 
@@ -93,7 +89,7 @@ print(tag_soup)
 </li>
 ```
 
-​	可以看出里面包含了两个\<li class="clearfix">\<li>，这表明**call**这个单词有两个词性，接下来就要解析出所有的词性，用到BeautifulSoup的**find_all**函数：
+​	可以看出里面包含了两个< li class="clearfix">< /li>，这表明**call**这个单词有两个词性，接下来就要解析出所有的词性，用到BeautifulSoup的**find_all**函数：
 
 ```python
 meanings = tag_soup.find_all(class_='clearfix')
@@ -105,7 +101,7 @@ for i in range(len(meanings)):
 
 ​	最后输出结果如图所示，这已经是我想要的结果了。
 
-![3.查询结果](E:\__Python\爬虫\03 金山词霸\开发文档\images\3.查询结果.png)
+![查询结果](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/3.%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C.png)
 
 # 3. 改进优化
 
@@ -115,17 +111,17 @@ for i in range(len(meanings)):
 
 ​	查询英语单词已经没有问题了，那么查询中文试试：
 
-![4.查询中文失败](E:\__Python\爬虫\03 金山词霸\开发文档\images\4.查询中文失败.png)
+![查询中文失败](https://github.com/fatcat01/spiders/blob/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/4.%E6%9F%A5%E8%AF%A2%E4%B8%AD%E6%96%87%E5%A4%B1%E8%B4%A5.png?raw=true)
 
 ​	程序报错，是编码问题，是urllib.request.urlopen函数导致的，我们只需将URL拼接改为`url = root_url +  urllib.parse.quote(word)`即可，试一下：
 
-![5.查询中文成功](E:\__Python\爬虫\03 金山词霸\开发文档\images\5.查询中文成功.png)
+![查询中文成功](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/5.%E6%9F%A5%E8%AF%A2%E4%B8%AD%E6%96%87%E6%88%90%E5%8A%9F.png)
 
 ## 3.2 查询不存在的单词
 
 ​	如果查询不存在的单词结果会如何：
 
-![6.查询不存在的单词失败](E:\__Python\爬虫\03 金山词霸\开发文档\images\6.查询不存在的单词失败.png)
+![查询不存在的单词失败](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/6.%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E5%8D%95%E8%AF%8D%E5%A4%B1%E8%B4%A5.png)
 
 ​	失败是因为在`tag_soup = soup.find(class_='base-list switch_part')`这一行执行完之后，**tag_soup**的值为**None**，已经不是BeautifulSoup里的数据类型了，已经不能使用**find_all** 函数了。那么在此处做一个判断：
 
@@ -187,7 +183,7 @@ print(Fore.RED + '='*30)
 
 ​	来看一下最终效果：
 
-![7.整体展示](E:\__Python\爬虫\03 金山词霸\开发文档\images\7.整体展示.png)
+![整体展示](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/7.%E6%95%B4%E4%BD%93%E5%B1%95%E7%A4%BA.png)
 
 ​	至此，一个简单的词典就完成了。
 
@@ -219,7 +215,7 @@ pyinstaller -F -i Dictionary.ico dict.py
 
 ​	欣赏一下最终效果：
 
-![8.词典演示](E:\__Python\爬虫\03 金山词霸\开发文档\images\8.词典演示.gif)
+![词典演示](https://raw.githubusercontent.com/fatcat01/spiders/master/02%20Dictionary/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/images/8.%E8%AF%8D%E5%85%B8%E6%BC%94%E7%A4%BA.gif)
 
 
 

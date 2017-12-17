@@ -40,7 +40,7 @@
 
 ![2.查找区域](E:\__Python\爬虫\03 金山词霸\开发文档\images\2.查找区域.png)
 
-​	确定好了数据区域是\<div class="base-list switch_part">和\</ul>中间的部分，接下来就把这些数据都抓取下来吧。
+​	确定好了数据区域是< ul class="base-list switch_part">和 < /ul>中间的部分，接下来就把这些数据都抓取下来吧。
 
 ## 2.3 抓取数据
 
@@ -93,7 +93,7 @@ print(tag_soup)
 </li>
 ```
 
-​	可以看出里面包含了两个\<li class="clearfix">\<li>，这表明**call**这个单词有两个词性，接下来就要解析出所有的词性，用到BeautifulSoup的**find_all**函数：
+​	可以看出里面包含了两个< li class="clearfix">< /li>，这表明**call**这个单词有两个词性，接下来就要解析出所有的词性，用到BeautifulSoup的**find_all**函数：
 
 ```python
 meanings = tag_soup.find_all(class_='clearfix')
@@ -263,3 +263,10 @@ while True:
 				print(Fore.RED + '='*30)
 ```
 
+
+
+---
+
+**大家有兴趣可以加群一起交流：**
+
+![python交流群](D:\Programming\Python\spiders\spiders\02 Dictionary\开发文档\images\python交流群.png)
